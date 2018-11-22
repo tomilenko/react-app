@@ -1,16 +1,24 @@
 import React, { Component } from 'react';
 import './App.css';
-import MenuAppBar from './components/MenuAppBar';
-import HomeSearch from './components/HomeSearch';
-import HomeCards from './components/HomeCards';
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import Routes from './Routes'
 
 class App extends Component {
+
   render() {
     return (
       <div className="App">
-        <MenuAppBar />
-        <HomeSearch />
-        <HomeCards />
+        <Router>
+          <div>
+            {Routes.map((route) => (
+              <Route
+                key={route.path}
+                path={route.path}
+                component={route.component}
+              />
+            ))}
+          </div>
+        </Router>
       </div>
     );
   }

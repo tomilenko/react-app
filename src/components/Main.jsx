@@ -10,7 +10,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
+// import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -33,7 +33,7 @@ const styles = {
   },
 };
 
-class MenuAppBar extends React.Component {
+class Main extends React.Component {
 
     state = {
         left: false,
@@ -51,21 +51,18 @@ class MenuAppBar extends React.Component {
         const sideList = (
             <div className={classes.list}>
               <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                  <ListItem button key={text}>
-                    <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                    <ListItemText primary={text} />
-                  </ListItem>
-                ))}
-              </List>
-              <Divider />
-              <List>
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                  <ListItem button key={text}>
-                    <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                    <ListItemText primary={text} />
-                  </ListItem>
-                ))}
+                <ListItem button key="Home">
+                  <ListItemIcon>{1 % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                  <ListItemText primary="Home" />
+                </ListItem>
+                <ListItem button key="About">
+                  <ListItemIcon>{2 % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                  <ListItemText primary="About" />
+                </ListItem>
+                <ListItem button key="Test">
+                  <ListItemIcon>{3 % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                  <ListItemText primary="Test" />
+                </ListItem>
               </List>
             </div>
         );
@@ -102,8 +99,8 @@ class MenuAppBar extends React.Component {
     }
 }
 
-MenuAppBar.propTypes = {
+Main.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(MenuAppBar);
+export default withStyles(styles)(Main);
