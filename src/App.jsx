@@ -1,24 +1,21 @@
 import React, { Component } from 'react';
-import './App.css';
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import Routes from './Routes'
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Provider } from 'react-redux';
+import indexRoutes from './routes/layoutRoutes';
 
 class App extends Component {
-
   render() {
     return (
       <div className="App">
-        <Router>
-          <div>
-            {Routes.map((route) => (
-              <Route
-                key={route.path}
-                path={route.path}
-                component={route.component}
-              />
-            ))}
-          </div>
-        </Router>
+        <Provider>
+          <Router>
+            <Switch>
+              {indexRoutes.map((props, key) => {
+                  return <Route exact path={props.path} component={props.component} key={key} />;
+              })}
+            </Switch>
+          </Router>
+        </Provider>
       </div>
     );
   }
