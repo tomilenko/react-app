@@ -1,26 +1,33 @@
 require('isomorphic-fetch');
 
-const endpoint = 'https://api.themoviedb.org/3/';
-const apiKey = 'ec100598eff80eb95917837627303bb3';
-// const options = {
-//     method: 'GET',
-//     headers: {
-//       'Accept': 'application/json'
-//     }
-//   }
+const URLS = {
+  movies: 'discover/movie',
+  search: 'search?query='
+};
 
-function discoverMovies() {
-  let url = `${endpoint}discover/movie?api_key=${apiKey}`;
-  return fetch(url).then(function(response) {
-    if (response.status >= 400) {
-        throw new Error("Bad response from server");
+const serviceHelper = {
+  endpoint: 'https://api.themoviedb.org/3/',
+  apiKey: 'ec100598eff80eb95917837627303bb3',
+  makeUrl: (url) => {
+    return `${serviceHelper.endpoint}${url}?api_key=${serviceHelper.apiKey}`;
+  },
+  validate: (res) => {
+    if (res.status >= 400) {
+      throw new Error("Bad response from server");
     }
-    return response.json();
-  }).then(function(stories) {
-      return stories.results;
-  });
+    return res.json();
+  }
 };
 
 module.exports = {
-  discoverMovies
-}
+  discoverMovies: () => {
+    return fetch(serviceHelper.makeUrl(URLS.movies))
+      .then((res) => serviceHelper.validate(res))
+      .then((data) => data.results);
+  },
+  findMovie: (name) => {
+    return fetch(serviceHelper.makeUrl(URLS.search + name))
+      .then((res) => serviceHelper.validate(res))
+      .then((data) => data.results);
+  }
+};
