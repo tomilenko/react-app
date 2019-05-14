@@ -1,6 +1,6 @@
 require('isomorphic-fetch');
 
 const URLS = {
-  movies: 'discover1/movie1',
+  movies: 'discover2/movie2',
   search: 'search?query='
 };
